@@ -149,6 +149,18 @@ static void setGfx1010Info(TargetInfo *targetInfo) {
   targetInfo->getGpuWorkarounds().gfx10.waFixBadImageDescriptor = 1;
 }
 
+// gfx1013 (Cyan Skillfish / PS5-class GFX10.1)
+//
+// LLVM models gfx1013 as the GFX10.1 common feature set plus the GFX10 A
+// encoding.  Reuse the conservative gfx1010 properties and workarounds here;
+// LLVM still receives the distinct "gfx1013" CPU name and selects its exact
+// instruction encoding and feature bits.
+//
+// @param [in/out] targetInfo : Target info
+static void setGfx1013Info(TargetInfo *targetInfo) {
+  setGfx1010Info(targetInfo);
+}
+
 // gfx1011
 //
 // @param [in/out] targetInfo : Target info
@@ -420,6 +432,7 @@ static const GpuNameStringMap GpuNameMap[] = {
     {"gfx1010", "Navi10", &setGfx1010Info},    // gfx1010
     {"gfx1011", "Navi12", &setGfx1011Info},    // gfx1011
     {"gfx1012", "Navi14", &setGfx1012Info},    // gfx1012
+    {"gfx1013", "Cyan Skillfish", &setGfx1013Info}, // gfx1013
     {"gfx1030", "Navi21", &setGfx1030Info},    // gfx1030
     {"gfx1031", "Navi22", &setGfx1031Info},    // gfx1031
     {"gfx1032", "Navi23", &setGfx1032Info},    // gfx1032
